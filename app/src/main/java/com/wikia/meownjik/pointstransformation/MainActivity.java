@@ -61,6 +61,18 @@ public class MainActivity extends AppCompatActivity {
                 inputEndMax.setText(inputInitMax.getText());
                 inputInitMax.setText(temp);
 
+                boolean temp1 = radioInitCustom.isChecked();
+                radioInitCustom.setChecked(radioEndCustom.isChecked());
+                radioEndCustom.setChecked(temp1);
+
+                temp1 = radioInit5.isChecked();
+                radioInit5.setChecked(radioEnd5.isChecked());
+                radioEnd5.setChecked(temp1);
+
+                temp1 = radioInitEcts.isChecked();
+                radioInitEcts.setChecked(radioEndEcts.isChecked());
+                radioEndEcts.setChecked(temp1);
+
                 recalculateMark();
                 updateProgressBar();
             }
@@ -83,29 +95,33 @@ public class MainActivity extends AppCompatActivity {
         };
         inputInitVal.addTextChangedListener(textWatcher);
         inputInitMax.addTextChangedListener(textWatcher);
-        inputEndVal.addTextChangedListener(textWatcher);
+        inputEndMax.addTextChangedListener(textWatcher);
 
         radioGroupInit.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                recalculateMark();
                 if (radioInitCustom.isChecked()) {
-                    inputInitVal.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    inputInitVal.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    inputInitMax.setEnabled(true);
                 } else {
                     inputInitVal.setInputType(InputType.TYPE_CLASS_TEXT);
+                    inputInitMax.setEnabled(false);
                 }
-                recalculateMark();
             }
         });
 
         radioGroupEnd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                recalculateMark();
                 if (radioEndCustom.isChecked()) {
-                    inputEndVal.setRawInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    inputEndVal.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                    inputEndMax.setEnabled(true);
                 } else {
                     inputEndVal.setInputType(InputType.TYPE_CLASS_TEXT);
+                    inputEndMax.setEnabled(false);
                 }
-                recalculateMark();
             }
         });
     }
@@ -136,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (NumberFormatException er) {
             Log.e(TAG, er.toString());
-            inputEndVal.setText("Error");
+            inputEndVal.setText(0);
             return;
         }
         //From custom
