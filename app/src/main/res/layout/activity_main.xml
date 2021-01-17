@@ -6,13 +6,178 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+<!--    ACTUAL POINTS -->
+    <EditText
+        android:id="@+id/inputInitValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="50dp"
+        android:inputType="numberDecimal"
+        android:gravity="center_horizontal"
+        android:minEms="4"
+        android:textSize="24sp"
+        android:hint="Initial"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFlip"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/inputEndValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:inputType="none"
+        android:focusable="false"
+        android:gravity="center_horizontal"
+        android:minEms="4"
+        android:textSize="24sp"
+        android:hint="Final"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonFlip"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonFlip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:minWidth="1.5dp"
+        android:text="↔"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    MAXIMUM POINTS -->
+    <TextView
+        android:id="@+id/textInitPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="of max"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFlip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputInitValue" />
+
+    <EditText
+        android:id="@+id/inputInitMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:inputType="numberDecimal"
+        android:minEms="4"
+        android:text="5"
+        android:hint="max"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFlip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInitPoints" />
+
+    <TextView
+        android:id="@+id/textEndPoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="of max"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonFlip"
+        app:layout_constraintTop_toBottomOf="@+id/inputEndValue" />
+
+    <EditText
+        android:id="@+id/inputEndMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_horizontal"
+        android:inputType="numberDecimal"
+        android:minEms="4"
+        android:text="100"
+        android:hint="max"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonFlip"
+        app:layout_constraintTop_toBottomOf="@+id/textEndPoints" />
+
+<!--    OPTIONS -->
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/buttonFlip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputInitMax">
+
+        <RadioButton
+            android:id="@+id/radioCustomInit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radio5Init"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5+"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioEctsInit"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:text="ECTS"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/buttonFlip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputEndMax">
+
+        <RadioButton
+            android:id="@+id/radioCustomEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Custom"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/radio5End"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5+"
+            android:textSize="24sp" />
+
+        <RadioButton
+            android:id="@+id/radioEctsEnd"
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:text="ECTS"
+            android:textSize="24sp" />
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
