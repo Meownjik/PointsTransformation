@@ -120,6 +120,7 @@
 
 <!--    OPTIONS -->
     <RadioGroup
+        android:id="@+id/radioGroupInit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -153,6 +154,7 @@
     </RadioGroup>
 
     <RadioGroup
+        android:id="@+id/radioGroupEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

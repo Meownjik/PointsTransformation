@@ -1,13 +1,15 @@
 package com.wikia.meownjik.pointstransformation;
 
 public class PointsCalculator {
-    private PointsCalculator() {}
+    private PointsCalculator() {
+    }
 
     /**
      * Translates the mark to another evaluation system. Rounds to 2 decimals.
-     * @param score - the points scored in the initial system
+     *
+     * @param score      - the points scored in the initial system
      * @param maxInitial - maximum points in the initial system
-     * @param maxFinal - maximum points in the final system
+     * @param maxFinal   - maximum points in the final system
      * @return - score in the terms of final system
      */
     public static float transform(float score, float maxInitial, float maxFinal) {
@@ -17,12 +19,12 @@ public class PointsCalculator {
 
     /**
      * Translates the mark to the classic 5-point system (with + and -)
-     * @param score - the points scored in the initial system
+     *
+     * @param score      - the points scored in the initial system
      * @param maxInitial - maximum points in the initial system
      * @return - score in the terms of final system
      */
-    static public String toClassic(float score, float maxInitial)
-    {
+    static public String toClassic(float score, float maxInitial) {
         score = transform(score, maxInitial, 5);
         String ans;
         if (score < 0.5) ans = "0";
@@ -52,12 +54,12 @@ public class PointsCalculator {
 
     /**
      * Translates the mark from the classic 5-point system (with + and -) to another one.
-     * @param score - the points scored in the initial system
+     *
+     * @param score    - the points scored in the initial system
      * @param maxFinal - maximum points in the final system
      * @return - score in the terms of final system
      */
-    static public double fromClassic(String score, float maxFinal)
-    {
+    static public float fromClassic(String score, float maxFinal) {
         double ans = 0;
 
         switch (score) {
@@ -116,12 +118,12 @@ public class PointsCalculator {
 
     /**
      * Translates the mark to the ECTS
-     * @param score - the points scored in the initial system
+     *
+     * @param score      - the points scored in the initial system
      * @param maxInitial - maximum points in the initial system
      * @return - score in the terms of final system
      */
-    static public String toEcts(float score, float maxInitial)
-    {//Перетворює оцінку у 100-бальній системі в оцінку
+    static public String toEcts(float score, float maxInitial) {//Перетворює оцінку у 100-бальній системі в оцінку
         //за європейською шкалою (A, B, ..., E)
         String ans;
         score = transform(score, maxInitial, 100);
@@ -142,12 +144,12 @@ public class PointsCalculator {
 
     /**
      * Translates the mark from ECTS to another evaluating system.
-     * @param score - the points scored in the initial system
+     *
+     * @param score    - the points scored in the initial system
      * @param maxFinal - maximum points in the final system
      * @return - score in the terms of final system
      */
-    static public double fromEcts(String score, float maxFinal)
-    {//Переводить оцінку з європейської системи ECTS
+    static public float fromEcts(String score, float maxFinal) {//Переводить оцінку з європейської системи ECTS
         //у 100-бальну систему
         float ans = 0;
         score = score.toUpperCase();
