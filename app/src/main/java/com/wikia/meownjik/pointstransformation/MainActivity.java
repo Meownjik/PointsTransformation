@@ -92,9 +92,7 @@ public class MainActivity extends AppCompatActivity {
             float scored = Float.parseFloat(inputInitVal.getText().toString());
             float max = Float.parseFloat(inputInitMax.getText().toString());
             float maxNew = Float.parseFloat(inputEndMax.getText().toString());
-            float result = scored / max * maxNew;
-            result = Math.round(result * 100) / 100f;
-            inputEndVal.setText(String.valueOf(result));
+            inputEndVal.setText(String.valueOf(PointsCalculator.transform(scored, max, maxNew)));
         }
         catch (NumberFormatException er) {
             //Log.e(er.getMessage());
