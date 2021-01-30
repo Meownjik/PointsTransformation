@@ -1,5 +1,6 @@
 package com.wikia.meownjik.pointstransformation;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
@@ -61,18 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 inputEndMax.setText(inputInitMax.getText());
                 inputInitMax.setText(temp);
 
-                boolean temp1 = radioInitCustom.isChecked();
-                radioInitCustom.setChecked(radioEndCustom.isChecked());
-                radioEndCustom.setChecked(temp1);
-
-                temp1 = radioInit5.isChecked();
-                radioInit5.setChecked(radioEnd5.isChecked());
-                radioEnd5.setChecked(temp1);
-
-                temp1 = radioInitEcts.isChecked();
-                radioInitEcts.setChecked(radioEndEcts.isChecked());
-                radioEndEcts.setChecked(temp1);
-
                 recalculateMark();
                 updateProgressBar();
             }
@@ -100,30 +89,46 @@ public class MainActivity extends AppCompatActivity {
         radioGroupInit.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                recalculateMark();
                 if (radioInitCustom.isChecked()) {
                     inputInitVal.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     inputInitMax.setEnabled(true);
+                    inputInitMax.setPaintFlags( inputInitMax.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
                     inputInitVal.setInputType(InputType.TYPE_CLASS_TEXT);
                     inputInitMax.setEnabled(false);
+                    inputInitMax.setPaintFlags(inputInitMax.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
+                enableFlip();
+                recalculateMark();
             }
         });
+        //radioGroupInit.setOnClickListener();
 
         radioGroupEnd.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                recalculateMark();
                 if (radioEndCustom.isChecked()) {
                     inputEndVal.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
                     inputEndMax.setEnabled(true);
+                    inputEndMax.setPaintFlags( inputEndMax.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
                     inputEndVal.setInputType(InputType.TYPE_CLASS_TEXT);
                     inputEndMax.setEnabled(false);
+                    inputEndMax.setPaintFlags(inputEndMax.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
+                enableFlip();
+                recalculateMark();
             }
         });
+    }
+
+    private void enableFlip() {
+        if (radioEndCustom.isChecked() && radioInitCustom.isChecked()) {
+            buttonFlip.setEnabled(true);
+        }
+        else {
+            buttonFlip.setEnabled(false);
+        }
     }
 
     private void updateProgressBar() {
@@ -152,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (NumberFormatException er) {
             Log.e(TAG, er.toString());
-            inputEndVal.setText(0);
+            inputEndVal.setText("0");
             return;
         }
         //From custom
@@ -167,20 +172,24 @@ public class MainActivity extends AppCompatActivity {
         }
         //From classic 5+
         else if (radioInit5.isChecked()) {
-            float interstitial = PointsCalculator.fromClassic(scored, maxNew);
             if (radioEndCustom.isChecked()) {
-                inputEndVal.setText(String.valueOf(interstitial));
+                inputEndVal.setText(String.valueOf(PointsCalculator.fromClassic(scored, maxNew)));
             } else if (radioEndEcts.isChecked()) {
-                inputEndVal.setText(PointsCalculator.toEcts(interstitial, 5));
+                inputEndVal.setText(PointsCalculator.toEcts(
+                        PointsCalculator.fromClassic(scored, 5), 5));
+            } else {
+                inputEndVal.setText(scored);
             }
         }
         //From ECTS
         else if (radioInitEcts.isChecked()) {
-            float interstitial = PointsCalculator.fromEcts(scored, maxNew);
             if (radioEndCustom.isChecked()) {
-                inputEndVal.setText(String.valueOf(interstitial));
+                inputEndVal.setText(String.valueOf(PointsCalculator.fromEcts(scored, maxNew)));
             } else if (radioEnd5.isChecked()) {
-                inputEndVal.setText(PointsCalculator.toClassic(interstitial, 100));
+                inputEndVal.setText(PointsCalculator.toClassic(
+                        PointsCalculator.fromEcts(scored, 100), 100));
+            } else {
+                inputEndVal.setText(scored);
             }
         }
         //From a special system to the same system
